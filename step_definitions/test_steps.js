@@ -17,7 +17,7 @@ Given("user visits url {string}", async function (url) {
 // =========================================== Steps ==================================================================
 
 Then('click {string} link', async (text) => {
-	await clickElementWithSelector(scope.page, 'a', text)
+	await clickElementBySelector(scope.page, text)
 })
 
 Then('click {string} button', async (text) => {
