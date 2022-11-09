@@ -1,0 +1,19 @@
+{
+  "name": "cucumber-puppeteer-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "rm -rf ./output && mkdir -p ./output/screenshots && cucumber-js --publish-quiet && open output/report.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@cucumber/cucumber": "^8.7.0",
+    "@cucumber/pretty-formatter": "^1.0.0",
+    "chai": "^4.3.7",
+    "puppeteer": "^19.2.2",
+    "slugify": "^1.6.5"
+  }
+}
