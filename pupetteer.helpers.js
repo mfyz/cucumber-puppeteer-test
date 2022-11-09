@@ -26,6 +26,6 @@ module.exports = {
 	},
 	clickElementBySelector: async (page, selector, text) => {
 		const element = await getElementWithSelector(page, selector, text)
-		return await page.click(element)
+		return await element.click()
 	}
 }
