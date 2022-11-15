@@ -1,23 +1,30 @@
-const { DEFAULT_THEME } = require('@cucumber/pretty-formatter')
+const runParallel = process.env.RUN_PARALLEL !== undefined
 
 module.exports = {
 	default: {
-		parallel: 3,
+		parallel: runParallel ? 3 : 1,
 		require: [
 			'step_definitions'
 		],
 		tags: 'not @draft',
 		formatOptions: {
+			// For @cucumber/pretty-formatter
+			colorsEnabled: true,
 			theme: {
-				...DEFAULT_THEME,
-				'step text': 'magenta',
-				"feature keyword": ["orange", "bold"],
-				"scenario keyword": ["red"]
+				'feature keyword': ['bgYellow', 'black', 'bold'],
+				'feature name': ['yellow', 'bold'],
+				'step text': ['gray'],
+				'scenario keyword': ['magenta'],
+				'scenario name': ['magentaBright'],
+				'step keyword': ['blueBright'],
 			}
 		},
 		format: [
-			// '@cucumber/pretty-formatter',
-			'progress-bar',
+			...(runParallel ? [
+				'progress-bar'
+			] : [
+				'@cucumber/pretty-formatter'
+			]),
 			'json:output/report.json',
 			'html:output/report.html'
 		]

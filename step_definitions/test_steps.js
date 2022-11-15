@@ -1,3 +1,4 @@
+require('dotenv').config()
 const { When, Then, Given, Before, AfterAll } = require("@cucumber/cucumber")
 const { expect } = require("chai")
 
@@ -10,8 +11,12 @@ const {
 
 // =========================================== Prerequisites ==========================================================
 
-Given("user visits url {string}", async function (url) {
-	await scope.page.goto(url, { waitUntil: 'networkidle0' })
+Given("user visits the site", async function () {
+	await scope.page.goto(process.env.E2E_TEST_SITE_URL, { waitUntil: 'networkidle0' })
+})
+
+Given("user visits the page {string}", async function (path) {
+	await scope.page.goto(process.env.E2E_TEST_SITE_URL + path, { waitUntil: 'networkidle0' })
 })
 
 // =========================================== Steps ==================================================================
@@ -47,14 +52,14 @@ Then('press {string} to field {string}', async (value, selector) => {
 	await scope.page.waitForTimeout(1000)
 })
 
-Then('expect to have {int} or more elements in {string}', async (count, selector) => {
-	const elements = await scope.page.$$(selector)
-	expect(elements.length).to.be.at.least(count)
-})
-
 Then('expect to have {int} elements in {string}', async (count, selector) => {
 	const elements = await scope.page.$$(selector)
 	expect(elements.length).to.equal(count)
+})
+
+Then('expect to have {int} or more elements in {string}', async (count, selector) => {
+	const elements = await scope.page.$$(selector)
+	expect(elements.length).to.be.at.least(count)
 })
 
 Then('after {int} second(s)', async (numSeconds) => {
